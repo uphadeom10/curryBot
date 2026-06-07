@@ -1,11 +1,8 @@
 ---
 title: CurryBOT
 emoji: 🍛
-colorFrom: orange
-colorTo: yellow
+colorFrom: yellow
+colorTo: red
 sdk: docker
 pinned: false
 ---
-
-# CurryBOT 🍛
-A curry-themed chatbot powered by AI.
