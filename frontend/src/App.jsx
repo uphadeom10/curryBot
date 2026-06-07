@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown"
 import "./App.css"
 
 // API URL
-const API_URL = "http://localhost:8000"
+const API_URL = "https://om10-currybot.hf.space"  // ✅
 
 function App() {
   const [messages, setMessages] = useState([
