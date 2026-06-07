@@ -4,16 +4,14 @@ from langchain_groq import ChatGroq
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
-
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Setup
-import os
-vectorDB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "vectorstore")
+vectorDB = str(Path(__file__).parent.parent / "vectorstore")
 embeddings = HuggingFaceEmbeddings(model_name="multi-qa-MiniLM-L6-cos-v1")
-vectors= Chroma(persist_directory=vectorDB, embedding_function=embeddings)
+vectors = Chroma(persist_directory=vectorDB, embedding_function=embeddings)
 retriever = vectors.as_retriever()
 llm = ChatGroq(
     model="meta-llama/llama-4-scout-17b-16e-instruct",
@@ -33,36 +31,27 @@ Context:
 {context}
 """
 
-# Store conversation history
 history = []
 
 def chat(question: str) -> str:
-    # Step 1 — combine past questions with current for better search
     past_questions = "\n".join(m["content"] for m in history if m["role"] == "user")
     search_query = past_questions + "\n" + question
 
-    # Step 2 — search ChromaDB
     docs = retriever.invoke(search_query)
     context = "\n\n".join(doc.page_content for doc in docs)
 
-    # Step 3 — build messages for LLM
     messages = [SystemMessage(content=SYSTEM_PROMPT.format(context=context))]
 
-    # Add past conversation
     for msg in history:
         if msg["role"] == "user":
             messages.append(HumanMessage(content=msg["content"]))
         else:
-            # assistant message
             messages.append(AIMessage(content=msg["content"]))
 
-    # Add current question
     messages.append(HumanMessage(content=question))
 
-    # Step 4 — get response
     response = llm.invoke(messages)
 
-    # Step 5 — save to history
     history.append({"role": "user", "content": question})
     history.append({"role": "assistant", "content": response.content})
 
@@ -72,7 +61,6 @@ def chat(question: str) -> str:
 if __name__ == "__main__":
     print("🍛 CurryBot is ready!\n")
 
-    # Test conversation
     print(f"Q: Tell me how to make Misal Pav")
     print(f"A: {chat('Tell me how to make Misal Pav')}\n")
     print("="*60)
