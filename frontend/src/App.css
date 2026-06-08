@@ -203,3 +203,63 @@
     background: #444;
     cursor: not-allowed;
   }
+
+  /* Mobile Responsive */
+@media (max-width: 768px) {
+
+  .app {
+    max-width: 100%;
+  }
+
+  .header {
+    padding: 12px 16px;
+  }
+
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  .header p {
+    font-size: 0.7rem;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+  }
+
+  .reset-btn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+
+  .chat-container {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .bubble {
+    max-width: 85%;
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+
+  .avatar {
+    font-size: 1.2rem;
+    min-width: 28px;
+  }
+
+  .input-area {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .input-area textarea {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+
+  .send-btn {
+    width: 42px;
+    font-size: 1rem;
+  }
+}

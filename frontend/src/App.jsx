@@ -125,7 +125,7 @@ function App() {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask me any Indian recipe... (Press Enter to send)"
+         placeholder="Ask me any Indian recipe..."
           rows={1}
         />
         <button
