@@ -13,8 +13,7 @@ vectorDB = str(Path(__file__).parent.parent / "vectorstore")
 embeddings = HuggingFaceEmbeddings(model_name="multi-qa-MiniLM-L6-cos-v1")
 vectors = Chroma(persist_directory=vectorDB, embedding_function=embeddings)
 retriever = vectors.as_retriever()
-llm = ChatGroq(
-    model="meta-llama/llama-4-scout-17b-16e-instruct",
+llm = ChatGroq(model="openai/gpt-oss-120b", 
     api_key=os.getenv("GROQ_API_KEY"),
     temperature=0.7
 )
